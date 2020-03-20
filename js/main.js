@@ -22,17 +22,49 @@ function countUp() {
   }, 10);
 }
 
+function setButtonSrateInitial() {
+  start.classList.remove('inactive');
+  stop.classList.add('inactive');
+  reset.classList.add('inactive');
+}
+
+function setButtonSrateRunning() {
+  start.classList.add('inactive');
+  stop.classList.remove('inactive');
+  reset.classList.add('inactive');
+}
+
+function setButtonSrateStoped() {
+  start.classList.remove('inactive');
+  stop.classList.add('inactive');
+  reset.classList.remove('inactive');
+}
+
+setButtonSrateInitial();
+
 start.addEventListener('click', () => {
+  if(start.classList.contains('inactive') === true) {
+    return;
+  }
+  setButtonSrateRunning();
   startTime = Date.now();
   countUp();
 });
 
 stop.addEventListener('click', () => {
+  if(stop.classList.contains('inactive') === true) {
+    return;
+  }
+  setButtonSrateStoped();
   clearTimeout(timeoutId);
   elapsedTime += Date.now() - startTime;
 });
 
 reset.addEventListener('click', () => {
+  if(reset.classList.contains('inactive') === true) {
+    return;
+  }
+  setButtonSrateInitial();
   timer.textContent = '00:00.000';
   elapsedTime = 0;
 });
